@@ -45,4 +45,36 @@ function showProducts() {
   product3.alt = Product.allProductsArray[image3].name;
 }
 
-function handleProductClick(event) {}
+function handleProductClick(event) {
+  if (event.target === productContainer) {
+    alert('Please click on an image.');
+  }
+  selections++;
+  let clickProduct = event.target.alt;
+  for (let i = 0; i < Product.allProductsArray.length; i++) {
+    if (clickProduct === Product.allProductsArray[i].name) {
+      Product.allProductsArray[i].selections++;
+      break;
+    }
+  }
+
+  if (selections === maxSelectionsAllowed) {
+    productContainer.removeEventListener('click', handleProductClick);
+    productContainer.className = 'no-voting';
+    renderChart();
+  } else {
+    showProducts();
+  }
+}
+
+function renderChart() {
+  let productNames = [];
+  let productLikes = [];
+  let productViews = [];
+  for (let i = 0; i < Product.allProductsArray.length; i++) {
+    productNames.push(Product.allProductsArray[i].name);
+    productLikes.push(Product.allProductsArry[i].selections);
+    productViews.push(Product.allProductsArray[i].views);
+  }
+  
+}
