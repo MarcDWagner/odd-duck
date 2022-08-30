@@ -76,5 +76,56 @@ function renderChart() {
     productLikes.push(Product.allProductsArry[i].selections);
     productViews.push(Product.allProductsArray[i].views);
   }
-  
+  const data = {
+    labels: productNames,
+    datasets: [{
+      label: 'Likes',
+      data: productLikes,
+      backgroundColor: [
+
+      ],
+      borderColor: [
+
+      ],
+      borderWidth: 1
+    },
+    {
+      label: 'Views',
+      data: productViews,
+      backgroundColor: [
+
+      ],
+      borderColor: [
+
+      ],
+      borderWidth: 1
+    }]
+  };
+  let canvasChart = document.getElementById('myChart');
+  const myChart = new CharacterData(canvasChart, config);
 }
+
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+new Product('name', 'location');
+
+renderProduct();
+
+productContainer.addEventListener('click', handleProductClick);
+
