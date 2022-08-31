@@ -23,7 +23,7 @@ function Product(name, src) {
 
 
 Product.allProductsArray = [];
-console.log(Product.allProductsArray);
+// console.log(Product.allProductsArray);
 
 function getRandomNumber() {
   return Math.floor(Math.random() * allProductsArray.length);
@@ -36,7 +36,7 @@ function showProducts() {
       indexArray.push(randomNumber);
     }
   }
-
+  console.log(indexArray);
 
   let image1 = indexArray.shift();
   let image2 = indexArray.shift();
@@ -47,6 +47,9 @@ function showProducts() {
   product1.alt = Product.allProductsArray[image1].name;
   product2.alt = Product.allProductsArray[image2].name;
   product3.alt = Product.allProductsArray[image3].name;
+  Product.allProductsArray[image1].views++;
+  Product.allProductsArray[image2].views++;
+  Product.allProductsArray[image3].views++;
 }
 
 function handleProductClick(event) {
@@ -69,7 +72,6 @@ function handleProductClick(event) {
   } else {
     showProducts();
   }
-
 }
 
 function renderChart() {
