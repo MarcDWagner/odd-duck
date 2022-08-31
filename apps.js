@@ -1,10 +1,12 @@
 'use strict';
+// console.log('isrunning');
 
 let productContainer = document.querySelector('section');
 let resultButton = document.querySelector('section + div');
 let product1 = document.querySelector('section img:first-child');
 let product2 = document.querySelector('section img:nth-child(2)');
-let product3 = document.querySelector('section img:nth-childa(3)');
+let product3 = document.querySelector('section img:nth-child(3)');
+let allProductsArray = [];
 
 let selections = 0;
 let maxSelectionsAllowed = 25;
@@ -15,11 +17,13 @@ function Product(name, src) {
   this.name = name;
   this.src = src;
   this.views = 0;
-  this.seclections = 0;
+  this.selections = 0;
   Product.allProductsArray.push(this);
 }
 
+
 Product.allProductsArray = [];
+console.log(Product.allProductsArray);
 
 function getRandomNumber() {
   return Math.floor(Math.random() * allProductsArray.length);
@@ -32,7 +36,7 @@ function showProducts() {
       indexArray.push(randomNumber);
     }
   }
-  console.log(indexArray);
+
 
   let image1 = indexArray.shift();
   let image2 = indexArray.shift();
@@ -65,6 +69,7 @@ function handleProductClick(event) {
   } else {
     showProducts();
   }
+
 }
 
 function renderChart() {
@@ -73,7 +78,7 @@ function renderChart() {
   let productViews = [];
   for (let i = 0; i < Product.allProductsArray.length; i++) {
     productNames.push(Product.allProductsArray[i].name);
-    productLikes.push(Product.allProductsArry[i].selections);
+    productLikes.push(Product.allProductsArray[i].selections);
     productViews.push(Product.allProductsArray[i].views);
   }
   const data = {
@@ -82,10 +87,10 @@ function renderChart() {
       label: 'Likes',
       data: productLikes,
       backgroundColor: [
-
+        'rgb(173, 216, 230)'
       ],
       borderColor: [
-
+        'rgb(0, 0, 255)'
       ],
       borderWidth: 1
     },
@@ -93,10 +98,10 @@ function renderChart() {
       label: 'Views',
       data: productViews,
       backgroundColor: [
-
+        'rgb(255, 160, 122)'
       ],
       borderColor: [
-
+        'rgb(205, 92, 92)'
       ],
       borderWidth: 1
     }]
@@ -114,7 +119,7 @@ function renderChart() {
     }
   };
   let canvasChart = document.getElementById('myChart');
-  const myChart = new CharacterData(canvasChart, config);
+  const myChart = new Chart(canvasChart, config);
 }
 
 new Product('bag', 'assets/bag.jpg');
@@ -137,7 +142,7 @@ new Product('unicorn', 'assets/unicorn.jpg');
 new Product('water-can', 'assets/water-can.jpg');
 new Product('wine-glass', 'assets/wine-glass.jpg');
 
-renderProduct();
+renderChart();
 
 productContainer.addEventListener('click', handleProductClick);
 
