@@ -2,7 +2,7 @@
 // console.log('isrunning');
 
 let productContainer = document.querySelector('section');
-let resultButton = document.querySelector('section + div');
+let resultButton = document.querySelector('section + button');
 let product1 = document.querySelector('section img:first-child');
 let product2 = document.querySelector('section img:nth-child(2)');
 let product3 = document.querySelector('section img:nth-child(3)');
@@ -10,8 +10,8 @@ let allProductsArray = [];
 
 let selections = 0;
 let maxSelectionsAllowed = 25;
-let uniqueImageCount = 19;
-let indexArray = [];
+// let uniqueImageCount = 19;
+// let indexArray = [];
 
 function Product(name, src) {
   this.name = name;
@@ -29,29 +29,27 @@ function getRandomNumber() {
   return Math.floor(Math.random() * allProductsArray.length);
 }
 
-function showProducts() {
-  while (indexArray.length < uniqueImageCount) {
-    let randomNumber = getRandomNumber();
-    if (!indexArray.includes(randomNumber)) {
-      indexArray.push(randomNumber);
+function renderProducts() {
+  let image1 = getRandomNumber();
+  let image2 = getRandomNumber();
+  let image3 = getRandomNumber();
+
+  while (image1 === image2 || image3) {
+    image2 = getRandomNumber();
+    if (image2 === image3) {
+      image3 = getRandomNumber();
     }
+    product1.src = Product.allProductsArray[image1].src;
+    product2.src = Product.allProductsArray[image2].src;
+    product3.src = Product.allProductsArray[image3].src;
+    product1.alt = Product.allProductsArray[image1].name;
+    product2.alt = Product.allProductsArray[image2].name;
+    product3.alt = Product.allProductsArray[image3].name;
+    Product.allProductsArray[image1].views++;
+    Product.allProductsArray[image2].views++;
+    Product.allProductsArray[image3].views++;
   }
-  console.log(indexArray);
-
-  let image1 = indexArray.shift();
-  let image2 = indexArray.shift();
-  let image3 = indexArray.shift();
-  product1.src = Product.allProductsArray[image1].src;
-  product2.src = Product.allProductsArray[image2].src;
-  product3.src = Product.allProductsArray[image3].src;
-  product1.alt = Product.allProductsArray[image1].name;
-  product2.alt = Product.allProductsArray[image2].name;
-  product3.alt = Product.allProductsArray[image3].name;
-  Product.allProductsArray[image1].views++;
-  Product.allProductsArray[image2].views++;
-  Product.allProductsArray[image3].views++;
 }
-
 function handleProductClick(event) {
   if (event.target === productContainer) {
     alert('Please click on an image.');
@@ -70,7 +68,7 @@ function handleProductClick(event) {
     productContainer.className = 'no-voting';
     renderChart();
   } else {
-    showProducts();
+    renderProducts();
   }
 }
 
@@ -144,7 +142,7 @@ new Product('unicorn', 'assets/unicorn.jpg');
 new Product('water-can', 'assets/water-can.jpg');
 new Product('wine-glass', 'assets/wine-glass.jpg');
 
-renderChart();
+renderProducts();
 
 productContainer.addEventListener('click', handleProductClick);
 
