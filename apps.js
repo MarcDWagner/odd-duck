@@ -53,14 +53,14 @@ function renderProducts() {
   let image2 = getRandomNumber();
   let image3 = getRandomNumber();
 
-  while (image1 === image2 || image3) {
-    image2 = getRandomNumber();
-    // while (image2 === image3) {
-    //   image3 = getRandomNumber();
-    //   while (image1 === image3) {
-    //     image3 = getRandomNumber();
-    //   }
-  }
+  // while (image1 === image2 || image3) {
+  //   image2 = getRandomNumber();
+  // while (image2 === image3) {
+  //   image3 = getRandomNumber();
+  //   while (image1 === image3) {
+  //     image3 = getRandomNumber();
+  //   }
+  // }
 
   product1.src = Product.allProductsArray[image1].src;
   product2.src = Product.allProductsArray[image2].src;
