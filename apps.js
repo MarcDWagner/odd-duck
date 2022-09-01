@@ -3,9 +3,9 @@
 
 let productContainer = document.getElementById('productContainer');
 let resultButton = document.getElementById('resultButton');
-let product1 = null;
-let product2 = null;
-let product3 = null;
+let product1 = document.querySelector('section img:first-child');
+let product2 = document.querySelector('section img:nth-child(2)');
+let product3 = document.querySelector('section img:nth-child(3)');
 let allProductsArray = [];
 
 let selections = 0;
@@ -62,7 +62,7 @@ function renderProducts() {
     //   }
   }
 
-  product1.src = Product.allProductsArray[0].src;
+  product1.src = Product.allProductsArray[image1].src;
   product2.src = Product.allProductsArray[image2].src;
   product3.src = Product.allProductsArray[image3].src;
   product1.alt = Product.allProductsArray[image1].name;
@@ -99,14 +99,14 @@ function handleProductClick(event) {
     renderProducts();
   }
 }
-// function renderResults() {
-//   let ul = document.queryselector('ul');
-//   for (let i = 0; i < Product.allProductsArray.length; i++) {
-//     let li = document.createElement('li');
-//     li.textContent = `${Product.allProductsArray[i].name} had ${Product.allProductsArray[i].views} view and was clicked ${Product.allProductsArray[i].clicks} times.`;
-//     ul.appendChild(li);
-//   }
-// }
+function renderResults() {
+  let ul = document.queryselector('ul');
+  for (let i = 0; i < Product.allProductsArray.length; i++) {
+    let li = document.createElement('li');
+    li.textContent = `${Product.allProductsArray[i].name} had ${Product.allProductsArray[i].views} view and was clicked ${Product.allProductsArray[i].clicks} times.`;
+    ul.appendChild(li);
+  }
+}
 
 
 // function renderChart() {
