@@ -19,6 +19,10 @@ function Product(name, src) {
 
 Product.catalog = [];
 
+fucntion getStorage() {
+  
+}
+
 
 // console.log(Product.allProductsArray);
 
@@ -84,9 +88,46 @@ fucntion renderChart(){
 
   let productNames = [];
   let productClicks = [];
-  let productView = [];
-  
-}
+  let productViews = [];
+  for (let i = 0, i < catalog.length; i++) {
+    productNames.push(catalog[i].name);
+    productClicks.push(catalog[i].selectedCount);
+    productViews.push(catalong[i].shownCount);
+  }
+
+  // Create data
+  const data = {
+    labels: productNames,
+    datasets: [{
+      label: 'Clicks',
+      data: productClicks,
+      backgroundColor: [],
+      borderColor: [],
+      borderWidth: 1,
+    },
+    {
+      label: 'Views',
+      data: productViews,
+      backgroundColor: [],
+      borderColor: [],
+      borderWidth: 1
+    }]
+    }
+
+const CTX = document.getElementById('results-chart');
+const myChart = new Chart(ctx, {
+  type: 'bar',
+  data: data,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+})
+};
+
 
 
 
@@ -113,7 +154,7 @@ fucntion renderChart(){
 //   productContainer.appendChild(product2);
 //   productContainer.appendChild(product3);
 // }
-console.log(renderProducts());
+// console.log(renderProducts());
 
 
 new Product('bag', 'assets/bag.jpg');
