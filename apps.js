@@ -1,8 +1,6 @@
 'use strict';
 console.log('isrunning');
 
-let catalog = [];
-let lastShown = [];
 
 let selections = 0;
 let maxSelections = 25;
@@ -14,12 +12,15 @@ function Product(name, src) {
   this.src = src;
   this.views = 0;
   this.selections = 0;
-  Product.catalog.push(this);
+  catalog.push(this);
 }
 
-Product.catalog = [];
+// Product.catalog = [];
 
 // prototypes
+
+let catalog = [];
+let lastShown = [];
 
 Product.prototype.includeChosen = function (amount = 1) {
   this.selectedCount += amount;
@@ -28,6 +29,26 @@ Product.prototype.includeChosen = function (amount = 1) {
 Product.prototype.includeShown = function () {
   this.shownCount++;
 };
+
+new Product('bag', 'assets/bag.jpg');
+new Product('banana', 'assets/banana.jpg');
+new Product('bathroom', 'assets/bathroom.jpg');
+new Product('boots', 'assets/boots.jpg');
+new Product('breakfast', 'assets/breakfast.jpg');
+new Product('bubblegum', 'assets/bubblegum.jpg');
+new Product('chair', 'assets/chair.jpg');
+new Product('cthulu', 'assets/cthulhu.jpg');
+new Product('dog-duck', 'assets/dog-duck.jpg');
+new Product('dragon', 'assets/dragon.jpg');
+new Product('pen', 'assets/pen.jpg');
+new Product('pet-sweep', 'assets/pet-sweep.jpg');
+new Product('scissors', 'assets/scissors.jpg');
+new Product('shark', 'assets/shark.jpg');
+new Product('sweep', 'assets/sweep.png');
+new Product('tauntaun', 'assets/tauntaun.jpg');
+new Product('unicorn', 'assets/unicorn.jpg');
+new Product('water-can', 'assets/water-can.jpg');
+new Product('wine-glass', 'assets/wine-glass.jpg');
 
 // set up local storage
 
@@ -50,7 +71,7 @@ function updateStorage() {
 // console.log(Product.allProductsArray);
 
 function randomItem() {
-  let randomItem = Math.floor(Math.random() * Product.catalog.length);
+  let randomItem = Math.floor(Math.random() * catalog.length);
   return randomItem;
 }
 
@@ -69,11 +90,11 @@ function randomIndex(amount = 3) {
 
 function handleClick(event) {
   if (event.target === imgContainer) {
-    console.log('you missed');
+    // console.log('you missed');
     return;
   }
   selections++;
-  let selectedProd = event.tartget.alt;
+  let selectedProd = event.target.alt;
   for (let i = 0; i < catalog.length; i++) {
     if (selectedProd === catalog[i].name) {
       catalog[i].selectedCount++;
@@ -137,7 +158,7 @@ function renderChart() {
     }]
   };
 
-  const ctx = document.getElementById('results-chart');
+  const ctx = document.getElementById('myChart');
   const myChart = new Chart(ctx, {
     type: 'bar',
     data: data,
@@ -151,25 +172,6 @@ function renderChart() {
   });
 }
 
-new Product('bag', 'assets/bag.jpg');
-new Product('banana', 'assets/banana.jpg');
-new Product('bathroom', 'assets/bathroom.jpg');
-new Product('boots', 'assets/boots.jpg');
-new Product('breakfast', 'assets/breakfast.jpg');
-new Product('bubblegum', 'assets/bubblegum.jpg');
-new Product('chair', 'assets/chair.jpg');
-new Product('cthulu', 'assets/cthulhu.jpg');
-new Product('dog-duck', 'assets/dog-duck.jpg');
-new Product('dragon', 'assets/dragon.jpg');
-new Product('pen', 'assets/pen.jpg');
-new Product('pet-sweep', 'assets/pet-sweep.jpg');
-new Product('scissors', 'assets/scissors.jpg');
-new Product('shark', 'assets/shark.jpg');
-new Product('sweep', 'assets/sweep.png');
-new Product('tauntaun', 'assets/tauntaun.jpg');
-new Product('unicorn', 'assets/unicorn.jpg');
-new Product('water-can', 'assets/water-can.jpg');
-new Product('wine-glass', 'assets/wine-glass.jpg');
 
 getStorage();
 renderImg(randomIndex());
