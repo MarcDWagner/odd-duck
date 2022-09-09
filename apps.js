@@ -6,7 +6,7 @@ let lastShown = [];
 
 let selections = 0;
 let maxSelections = 25;
-let uniqueImageCount = 19;
+// let uniqueImageCount = 19;
 // let indexArray = [];
 
 function Product(name, src) {
@@ -19,8 +19,31 @@ function Product(name, src) {
 
 Product.catalog = [];
 
-fucntion getStorage() {
-  
+// prototypes
+
+Product.prototype.includeChosen = function (amount = 1) {
+  this.selectedCount += amount;
+};
+
+Product.prototype.includeShown = function () {
+  this.shownCount++;
+};
+
+// set up local storage
+
+function getStorage() {
+  let storedCatalog = localStorage.getItem('catalog');
+  console.log('retrieved data: ' + storedCatalog);
+  if (storedCatalog) {
+    console.log('loaded data');
+    catalog = JSON.parse(storedCatalog);
+  }
+}
+
+function updateStorage() {
+  let stringForStorage = JSON.stringify(catalog);
+  console.log(stringForStorage);
+  localStorage.setItem('catalog', stringForStorage);
 }
 
 
@@ -36,7 +59,7 @@ function randomIndex(amount = 3) {
 
   while (array.length < amount) {
     let randomProd = catalog[randomItem()];
-    if(!array.includes(randomProd) && !lastUp.includes(randomProd)){
+    if (!array.includes(randomProd) && !lastShown.includes(randomProd)) {
       array.push(randomProd);
     }
   }
@@ -51,7 +74,7 @@ function handleClick(event) {
   }
   selections++;
   let selectedProd = event.tartget.alt;
-  for (let i=0; i <catalog.length; i++){
+  for (let i = 0; i < catalog.length; i++) {
     if (selectedProd === catalog[i].name) {
       catalog[i].selectedCount++;
       renderImg(randomIndex());
@@ -66,15 +89,15 @@ imgContainer.addEventListener('click', handleClick);
 
 function renderImg(array) {
   updateStorage();
-  if (selection < maxSelections) {
+  if (selections < maxSelections) {
 
     while (imgContainer.firstChild) {
       imgContainer.removeChild(imgContainer.firstChild);
     }
-    for (let i = 0; i < array.length; i++){
+    for (let i = 0; i < array.length; i++) {
       array[i].shownCount++;
       let productImg = document.createElement('img');
-      productImg.src = array[i].img;
+      productImg.src = array[i].src;
       productImg.alt = array[i].name;
       imgContainer.appendChild(productImg);
     }
@@ -83,16 +106,16 @@ function renderImg(array) {
     renderChart();
   }
 }
-// Chart
-fucntion renderChart(){
 
+// Chart
+function renderChart() {
   let productNames = [];
   let productClicks = [];
   let productViews = [];
-  for (let i = 0, i < catalog.length; i++) {
+  for (let i = 0; i < catalog.length; i++) {
     productNames.push(catalog[i].name);
     productClicks.push(catalog[i].selectedCount);
-    productViews.push(catalong[i].shownCount);
+    productViews.push(catalog[i].shownCount);
   }
 
   // Create data
@@ -112,50 +135,21 @@ fucntion renderChart(){
       borderColor: [],
       borderWidth: 1
     }]
-    }
+  };
 
-const CTX = document.getElementById('results-chart');
-const myChart = new Chart(ctx, {
-  type: 'bar',
-  data: data,
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
+  const ctx = document.getElementById('results-chart');
+  const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
       }
     }
-  }
-})
-};
-
-
-
-
-// function renderProducts() {
-
-// let image1 = getRandomNumber();
-// let image2 = getRandomNumber();
-// let image3 = getRandomNumber();
-//   }
-
-//   console.log(indexArray);
-// console.log(renderProducts());
-
-//   product1.alt = Product.catalog[image1].name;
-//   product2.alt = Product.catalog[image2].name;
-//   product3.alt = Product.catalog[image3].name;
-//   product1.src = Product.catalog[image1].src;
-//   product2.src = Product.catalog[image2].src;
-//   product3.src = Product.catalog[image3].src;
-//   Product.catalog[image1].views++;
-//   Product.catalog[image2].views++;
-//   Product.catalog[image3].views++;
-//   productContainer.appendChild(product1);
-//   productContainer.appendChild(product2);
-//   productContainer.appendChild(product3);
-// }
-// console.log(renderProducts());
-
+  });
+}
 
 new Product('bag', 'assets/bag.jpg');
 new Product('banana', 'assets/banana.jpg');
@@ -177,6 +171,7 @@ new Product('unicorn', 'assets/unicorn.jpg');
 new Product('water-can', 'assets/water-can.jpg');
 new Product('wine-glass', 'assets/wine-glass.jpg');
 
-renderProducts();
+getStorage();
+renderImg(randomIndex());
 
 
