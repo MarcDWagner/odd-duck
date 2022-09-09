@@ -1,63 +1,118 @@
 'use strict';
 console.log('isrunning');
 
-let productContainer = document.querySelector('.productContainer');
-let resultButton = document.getElementById('resultButton');
-let product1 = document.getElementById('.pick-product:first-child');
-let product2 = document.getElementById('.pick-product:nth-child(2)');
-let product3 = document.getElementById('.pick-product:nth-child(3)');
-let allProductsArray = [];
+let catalog = [];
+let lastShown = [];
 
 let selections = 0;
-let maxSelectionsAllowed = 25;
+let maxSelections = 25;
 let uniqueImageCount = 19;
-let indexArray = [];
+// let indexArray = [];
 
 function Product(name, src) {
   this.name = name;
   this.src = src;
   this.views = 0;
   this.selections = 0;
-  Product.allProductsArray.push(this);
+  Product.catalog.push(this);
 }
 
-Product.allProductsArray = [];
+Product.catalog = [];
 
 
 // console.log(Product.allProductsArray);
 
-function getRandomNumber() {
-  return Math.floor(Math.random() * Product.allProductsArray.length);
+function randomItem() {
+  let randomItem = Math.floor(Math.random() * Product.catalog.length);
+  return randomItem;
 }
 
-function renderProducts() {
+function randomIndex(amount = 3) {
+  let array = [];
 
-  while (indexArray.length < uniqueImageCount) {
-    let randomNumber = getRandomNumber();
-    if (!indexArray.includes(randomNumber)) {
-      indexArray.push(randomNumber);
-    } else { break; }
+  while (array.length < amount) {
+    let randomProd = catalog[randomItem()];
+    if(!array.includes(randomProd) && !lastUp.includes(randomProd)){
+      array.push(randomProd);
+    }
   }
-
-  console.log(indexArray);
-  console.log(renderProducts());
-
-  let image1 = indexArray[0];
-  let image2 = indexArray[1];
-  let image3 = indexArray[2];
-  product1.alt = Product.allProductsArray[image1].name;
-  product2.alt = Product.allProductsArray[image2].name;
-  product3.alt = Product.allProductsArray[image3].name;
-  product1.src = Product.allProductsArray[image1].src;
-  product2.src = Product.allProductsArray[image2].src;
-  product3.src = Product.allProductsArray[image3].src;
-  Product.allProductsArray[image1].views++;
-  Product.allProductsArray[image2].views++;
-  Product.allProductsArray[image3].views++;
-  productContainer.appendChild(product1);
-  productContainer.appendChild(product2);
-  productContainer.appendChild(product3);
+  lastShown = array;
+  return array;
 }
+
+function handleClick(event) {
+  if (event.target === imgContainer) {
+    console.log('you missed');
+    return;
+  }
+  selections++;
+  let selectedProd = event.tartget.alt;
+  for (let i=0; i <catalog.length; i++){
+    if (selectedProd === catalog[i].name) {
+      catalog[i].selectedCount++;
+      renderImg(randomIndex());
+      break;
+    }
+  }
+}
+//Render product selection images
+
+let imgContainer = document.getElementById('pick-product');
+imgContainer.addEventListener('click', handleClick);
+
+function renderImg(array) {
+  updateStorage();
+  if (selection < maxSelections) {
+
+    while (imgContainer.firstChild) {
+      imgContainer.removeChild(imgContainer.firstChild);
+    }
+    for (let i = 0; i < array.length; i++){
+      array[i].shownCount++;
+      let productImg = document.createElement('img');
+      productImg.src = array[i].img;
+      productImg.alt = array[i].name;
+      imgContainer.appendChild(productImg);
+    }
+  } else {
+    imgContainer.removeEventListener('click', handleClick);
+    renderChart();
+  }
+}
+// Chart
+fucntion renderChart(){
+
+  let productNames = [];
+  let productClicks = [];
+  let productView = [];
+  
+}
+
+
+
+// function renderProducts() {
+
+// let image1 = getRandomNumber();
+// let image2 = getRandomNumber();
+// let image3 = getRandomNumber();
+//   }
+
+//   console.log(indexArray);
+// console.log(renderProducts());
+
+//   product1.alt = Product.catalog[image1].name;
+//   product2.alt = Product.catalog[image2].name;
+//   product3.alt = Product.catalog[image3].name;
+//   product1.src = Product.catalog[image1].src;
+//   product2.src = Product.catalog[image2].src;
+//   product3.src = Product.catalog[image3].src;
+//   Product.catalog[image1].views++;
+//   Product.catalog[image2].views++;
+//   Product.catalog[image3].views++;
+//   productContainer.appendChild(product1);
+//   productContainer.appendChild(product2);
+//   productContainer.appendChild(product3);
+// }
 console.log(renderProducts());
 
 
