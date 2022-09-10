@@ -1,12 +1,30 @@
 body {
-  /* position: relative; */
   min-height: 100vh;
   max-width: 1100px;
 }
 
 h1 {
-font-size: 40px;
+  color: rgb(255, 204, 51);
+font-size: 50px;
 font-weight: bold;
+text-shadow: 3px 2px black;
+}
+
+ h2 {
+  display:flex;
+  font-size: 40px;
+  font-weight: bold;
+  justify-content: center;
+  margin: 20px;
+}
+
+p {
+  display: flex;
+  font-size: 20px;
+  font-weight: bold;
+  justify-content: center;
+  margin: 10px 0px 10px 0px;
+
 }
 
 main {
@@ -15,54 +33,30 @@ main {
   background-color:lightblue;
 }
 
-main h2 {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 20px;
-}
-
-
-main section {
-  border: thin solid black
-}
-
 main section div img {
-
   position: relative;
-  width: 150px;
-  height: 150px;
-  border: thin solid red;
- }
-
- main section div {
-  border: thin solid orange;
- }
-
-/* #pick-product {
-  display: flex;
-  flex-direction: row;
-  width: 150px; 
-  height: 150px;
+  width: 200px;
+  height: 200px;
   border: thin solid black;
-  border-radius: 40px;
-} */
+ }
 
-#resultButton {
+#pick-product {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px 10px 10px 150px;
+  max-height: 200px;
+  max-width: 70%;
+}
+
+button {
+  border: thin solid black;
+  margin: 10px 10px 20px 465px;
   background-color: coral;
-  color: black;
+  font-size: large;
   font-weight: bold;
-}
-
-#chart-div {
-  background-color: beige;
-  padding: 10px;
-  margin: 0px 0px 40px 20px;
-  width: 800px;
-  display: block;
-}
-.pick-product {
-  margin: 40px;
-}
+  height: 45px;
+  width: 150px;
+  }
 
 footer {
   width: 100%;
