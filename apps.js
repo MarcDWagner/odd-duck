@@ -1,6 +1,4 @@
 'use strict';
-console.log('isrunning');
-
 
 let selections = 0;
 let maxSelections = 25;
@@ -15,12 +13,10 @@ function Product(name, src) {
   catalog.push(this);
 }
 
-// Product.catalog = [];
-
-// prototypes
-
 let catalog = [];
 let lastShown = [];
+
+// prototypes
 
 Product.prototype.includeChosen = function (amount = 1) {
   this.selectedCount += amount;
@@ -50,25 +46,31 @@ new Product('unicorn', 'assets/unicorn.jpg');
 new Product('water-can', 'assets/water-can.jpg');
 new Product('wine-glass', 'assets/wine-glass.jpg');
 
-// set up local storage
+// Set up local storage
 
 function getStorage() {
   let storedCatalog = localStorage.getItem('catalog');
-  // console.log('retrieved data: ' + storedCatalog);
   if (storedCatalog) {
-    // console.log('loaded data');
     catalog = JSON.parse(storedCatalog);
   }
 }
 
 function updateStorage() {
   let stringForStorage = JSON.stringify(catalog);
-  // console.log(stringForStorage);
   localStorage.setItem('catalog', stringForStorage);
 }
 
+// Disable and Enable results button
 
-// console.log(Product.allProductsArray);
+function disableBtn(){
+  document.getElementById('results').disabled = true;
+}
+disableBtn();
+
+function enableBtn(){
+  document.getElementById('results').disabled = false;
+}
+// Make it random
 
 function randomItem() {
   let randomItem = Math.floor(Math.random() * catalog.length);
@@ -88,9 +90,11 @@ function randomIndex(amount = 3) {
   return array;
 }
 
+
+// Click it
+
 function handleClick(event) {
   if (event.target === imgContainer) {
-    // console.log('missed');
     return;
   }
   selections++;
@@ -102,13 +106,6 @@ function handleClick(event) {
       break;
     }
   }
-}
-
-function viewResults(){
-  let resultsButton = document.getElementById('results');
-  resultsButton.addEventListener('click', function(){
-    document.getElementById('chart').hidden = false;
-  });
 }
 
 //Render product selection images
@@ -132,13 +129,18 @@ function renderImg(array) {
     }
   } else {
     imgContainer.removeEventListener('click', handleClick);
-    renderChart();
-    viewResults();
+    enableBtn();
+    // renderChart();
   }
 }
 
+// Results button click
+
+let resultButton = document.getElementById('results');
+resultButton.addEventListener('click', renderChart);
 
 // Chart
+
 function renderChart() {
   let productNames = [];
   let productClicks = [];
@@ -181,7 +183,6 @@ function renderChart() {
     }
   });
 }
-
 
 getStorage();
 renderImg(randomIndex());
