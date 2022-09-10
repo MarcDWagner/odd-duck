@@ -54,16 +54,16 @@ new Product('wine-glass', 'assets/wine-glass.jpg');
 
 function getStorage() {
   let storedCatalog = localStorage.getItem('catalog');
-  console.log('retrieved data: ' + storedCatalog);
+  // console.log('retrieved data: ' + storedCatalog);
   if (storedCatalog) {
-    console.log('loaded data');
+    // console.log('loaded data');
     catalog = JSON.parse(storedCatalog);
   }
 }
 
 function updateStorage() {
   let stringForStorage = JSON.stringify(catalog);
-  console.log(stringForStorage);
+  // console.log(stringForStorage);
   localStorage.setItem('catalog', stringForStorage);
 }
 
@@ -90,7 +90,7 @@ function randomIndex(amount = 3) {
 
 function handleClick(event) {
   if (event.target === imgContainer) {
-    // console.log('you missed');
+    // console.log('missed');
     return;
   }
   selections++;
@@ -103,6 +103,14 @@ function handleClick(event) {
     }
   }
 }
+
+function viewResults(){
+  let resultsButton = document.getElementById('results');
+  resultsButton.addEventListener('click', function(){
+    document.getElementById('chart').hidden = false;
+  });
+}
+
 //Render product selection images
 
 let imgContainer = document.getElementById('pick-product');
@@ -125,8 +133,10 @@ function renderImg(array) {
   } else {
     imgContainer.removeEventListener('click', handleClick);
     renderChart();
+    viewResults();
   }
 }
+
 
 // Chart
 function renderChart() {
@@ -145,15 +155,15 @@ function renderChart() {
     datasets: [{
       label: 'Clicks',
       data: productClicks,
-      backgroundColor: [],
-      borderColor: [],
+      backgroundColor: ['rgb(255, 165, 0'],
+      borderColor: ['rgb(255, 140, 0'],
       borderWidth: 1,
     },
     {
       label: 'Views',
       data: productViews,
-      backgroundColor: [],
-      borderColor: [],
+      backgroundColor: ['rgb(138, 43, 226)'],
+      borderColor: ['rgb(255, 0, 255'],
       borderWidth: 1
     }]
   };
